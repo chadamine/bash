@@ -18,3 +18,4 @@ sed -ri 's/.jpg//' $file #| awk -F'/' '{print $1// $2// $3}'
 sed -ri 's/.{32}$//' $file
 #sed -ri '/^.$/' $file | awk -F'/' '{print $1// $2// $3}' 
 
+#echo '736x/e6/56/a6/e656a6e610c9c210889425077499d58c' | awk -F'/' '{print $1"/" $2"/" $3"/" $4}'
