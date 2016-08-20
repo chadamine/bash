@@ -1,21 +1,39 @@
-echo "This script will remove http data before each line of text in an input file as well as the .[filetype] ending following the image name, preserving original file structure"
+#!/bin/sh
 
+# Script to strip URI down to and then create dir struct
+
+# TODO create user choosable output switch:
+#
+# ;w /dev/stdout' $file
+
+
+# salve
+echo "Strips URI down to and then creates dir struct by line in from \\n delimited file list."
+echo
+
+# read input file
 read -p "Input file: " file
-#read -p "\n\nVerbose output?(1|0) " ver
 
-sed -ri 's/http:\/\/media-cache-ec0.pinimg.com\///' $file
-# ;w /dev/stdout' $file
+# remove any ec0 uri's
+# TODO use one sed query for ec0|ak0
+sed -ri .bak 's/http:\/\/media-cache-ec0.pinimg.com\///' $file
 
+# remove any ak0 uri's
+# TODO see above
 sed -ri 's/http:\/\/media-cache-ak0.pinimg.com\///' $file
-# ;w /dev/stdout' $file
 
-#sed -ri 's/[a-z0-9]\{15,\}.jpg//' $file
-#;w /dev/stdout' $file 
+# remove filtype ext
+sed -ri 's/.jpg//' $file 
 
-sed -ri 's/.jpg//' $file #| awk -F'/' '{print $1// $2// $3}'
-# ;w /dev/stdout' $file
-
+# remove 32 trailers (like a twister)
 sed -ri 's/.{32}$//' $file
-#sed -ri '/^.$/' $file | awk -F'/' '{print $1// $2// $3}' 
 
-#echo '736x/e6/56/a6/e656a6e610c9c210889425077499d58c' | awk -F'/' '{print $1"/" $2"/" $3"/" $4}'
+# TODO make this work some day
+#sed -ri 's/[a-z0-9]\{15,\}.jpg//' $file
+
+# print w sed, chop and sel wit awk
+sed p $file | awk -F'/' '{print $1"/" $2"/" $3"/" $4}'
+
+# mk dirs
+mkdir -pv $(cat < ptest)
+
