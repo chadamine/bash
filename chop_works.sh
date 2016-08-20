@@ -16,11 +16,11 @@ read -p "Input file: " file
 
 # remove any ec0 uri's
 # TODO use one sed query for ec0|ak0
-sed -ri .bak 's/http:\/\/media-cache-ec0.pinimg.com\///' $file
+sed -r -i.bak 's/http:\/\/media-cache-ec0.pinimg.com\///' -e 's/http:\/\/media-cache-ak0.pinimg.com\///' $file
 
 # remove any ak0 uri's
 # TODO see above
-sed -ri 's/http:\/\/media-cache-ak0.pinimg.com\///' $file
+#sed -ri 's/http:\/\/media-cache-ak0.pinimg.com\///' $file
 
 # remove filtype ext
 sed -ri 's/.jpg//' $file 
